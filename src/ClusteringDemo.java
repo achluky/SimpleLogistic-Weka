@@ -20,12 +20,12 @@ public class ClusteringDemo {
    */
   public ClusteringDemo(String filename) throws Exception {
 	    
-	  	ClusterEvaluation eval;
+	  	ClusterEvaluation 		eval;
 	    Instances               data;
 	    String[]                options;
 	    DensityBasedClusterer   cl;    
 
-	    data = new Instances(new BufferedReader(new FileReader(filename)));
+	    data 					= new Instances(new BufferedReader(new FileReader(filename)));
     
 	    // normal
 	    System.out.println("\n--> normal");
@@ -57,11 +57,14 @@ public class ClusteringDemo {
    *   ClusteringDemo arff-file
    */
   public static void main(String[] args) throws Exception {
-    if (args.length != 1) {
-      System.out.println("usage: " + ClusteringDemo.class.getName() + " <arff-file>");
-      System.exit(1);
-    }
-
-    new ClusteringDemo(args[0]);
+	  
+	  /*
+	  if (args.length != 1) {
+		  System.out.println("usage: " + ClusteringDemo.class.getName() + " <arff-file>");
+		  System.exit(1);
+	  }
+	  */
+	  String Fl = "./iris.arff";
+	  new ClusteringDemo(Fl);
   }
 }
