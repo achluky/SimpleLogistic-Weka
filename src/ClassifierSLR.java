@@ -4,27 +4,16 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
-
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
-
 import weka.classifiers.bayes.NaiveBayes;
+import weka.core.Attribute;
+import weka.core.DenseInstance;
 import weka.core.Instances;
 import weka.core.converters.ArffLoader.ArffReader;
 
 public class ClassifierSLR {
-	/**
-	 * Object that stores the instance.
-	 */
+
 	Instances instances;
-	/**
-	 * Object that stores the classifier.
-	 */
 	NaiveBayes classifier;
-			
-	/**
-	 * This method loads the model to be used as classifier.
-	 * @param fileName The name of the file that stores the model.
-	 */
 	public void loadModel(String fileName) {
 		try {
 			ObjectInputStream in = new ObjectInputStream(new FileInputStream(fileName));
@@ -39,11 +28,9 @@ public class ClassifierSLR {
 		}
 	}
 	
-	/**
-	 * This method creates the instance to be classified, from the text that has been read.
-	 * @param csvInstance A CSV formatted instance of the Weather Numeric Dataset: "sunny,85,85,FALSE" or "sunny,85,85,FALSE,?"
-	 */
+	@SuppressWarnings("unchecked")
 	public void makeInstance(String csvInstance) {
+		
 		// Attributes are:
 		// @attribute outlook {sunny, overcast, rainy}
 		// @attribute temperature real
@@ -51,11 +38,21 @@ public class ClassifierSLR {
 		// @attribute windy {TRUE, FALSE}
 		// @attribute play {yes, no}
 		
+		//@RELATION iris
+
+		//@ATTRIBUTE sepallength	REAL
+		//@ATTRIBUTE sepalwidth 	REAL
+		//@ATTRIBUTE petallength 	REAL
+		//@ATTRIBUTE petalwidth	REAL
+		//@ATTRIBUTE class 	{Iris-setosa,Iris-versicolor,Iris-virginica}
+		
 		// Create the header
-		List attributeList = (List) new ArrayList(5);
+		@SuppressWarnings("rawtypes")
+		ArrayList  attributeList = new ArrayList(5);
 		
 		// Atribute "outlook"
-		List values = (List) new ArrayList(3); 
+		@SuppressWarnings("rawtypes")
+		ArrayList  values = new ArrayList(3); 
 		values.add("sunny"); 
 		values.add("overcast"); 
 		values.add("rainy"); 
@@ -89,7 +86,6 @@ public class ClassifierSLR {
 		// Set class index
 		instances.setClassIndex(instances.numAttributes()-1);
 		
-		
 		// Create and add the instance
 		DenseInstance instance = new DenseInstance(5);
 		instance.setDataset(instances);
@@ -106,10 +102,6 @@ public class ClassifierSLR {
 		System.out.println(instances);
 	}
 	
-	/**
-	 * This method performs the classification of the instance.
-	 * Output is done at the command-line.
-	 */
 	public void classify() {
 		try {
 			double pred = classifier.classifyInstance(instances.instance(0));
@@ -121,11 +113,6 @@ public class ClassifierSLR {
 		}		
 	}
 	
-	/**
-	 * This method loads a dataset in ARFF format. If the file does not exist, or
-	 * it has a wrong format, the attribute instances is null.
-	 * @param fileName The name of the file that stores the dataset.
-	 */
 	public void loadHeader(String fileName) {
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(fileName));
@@ -139,10 +126,6 @@ public class ClassifierSLR {
 		}
 	}
 	
-	/**
-	 * This method creates the instance to be classified, from the text that has been read.
-	 * @param csvInstance A CSV formatted instance of the Weather Numeric Dataset: "sunny,85,85,FALSE" or "sunny,85,85,FALSE,?"
-	 */
 	public void makeInstanceFromHeader(String csvInstance) {
 		// Attributes are:
 		// @attribute outlook {sunny, overcast, rainy}
@@ -184,8 +167,9 @@ public class ClassifierSLR {
 			System.out.println("Or: java MyClassifier \"sunny,85,85,FALSE,no\" myNaiveBayesModel.data myWeatherHeader.arff");
 		}
 		else {
+			String modl = "./model-iris.dat";
 			classifier = new ClassifierSLR();
-			classifier.loadModel(args[1]);
+			classifier.loadModel(modl);
 			classifier.makeInstance(args[0]);
 			// classifier.loadHeader(args[2]);
 			// classifier.makeInstanceFromHeader(args[0]);
