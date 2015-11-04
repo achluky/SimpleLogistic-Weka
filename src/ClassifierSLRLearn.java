@@ -9,7 +9,11 @@ import weka.classifiers.Evaluation;
 import weka.classifiers.functions.SimpleLogistic;
 import weka.core.Instances;
 import weka.core.converters.ArffLoader.ArffReader;
-
+/**
+ * 
+ * @author ahmadluky
+ *
+ */
 public class ClassifierSLRLearn {
 
 	Instances trainData;
@@ -32,7 +36,8 @@ public class ClassifierSLRLearn {
 			trainData.setClassIndex(trainData.numAttributes()-1);
 			classifier = new SimpleLogistic();
 			Evaluation eval = new Evaluation(trainData);
-			eval.crossValidateModel(classifier, trainData, 4, new Random(1));
+			// best k=9 for cross validation
+			eval.crossValidateModel(classifier, trainData, 8, new Random(1));
 			System.out.println(eval.toSummaryString());
 			System.out.println(eval.toClassDetailsString());
 			System.out.println("===== Evaluating on filtered (training) dataset done =====");
