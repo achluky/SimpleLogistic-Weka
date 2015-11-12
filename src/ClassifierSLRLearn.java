@@ -36,7 +36,7 @@ public class ClassifierSLRLearn {
 			trainData.setClassIndex(trainData.numAttributes()-1);
 			classifier = new SimpleLogistic();
 			Evaluation eval = new Evaluation(trainData);
-			// best k=9 for cross validation
+			// best k=8 for cross validation
 			eval.crossValidateModel(classifier, trainData, 8, new Random(1));
 			System.out.println(eval.toSummaryString());
 			System.out.println(eval.toClassDetailsString());
