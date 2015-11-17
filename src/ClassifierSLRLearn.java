@@ -9,10 +9,10 @@ import weka.classifiers.Evaluation;
 import weka.classifiers.functions.SimpleLogistic;
 import weka.core.Instances;
 import weka.core.converters.ArffLoader.ArffReader;
+
 /**
- * 
+ * Bogor Agriculture University
  * @author ahmadluky
- *
  */
 public class ClassifierSLRLearn {
 
